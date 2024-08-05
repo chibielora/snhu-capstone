@@ -1,6 +1,7 @@
+"use client";
 import Link from "next/link";
 
-export function NavLink({ href, children }) {
+export function NavLink({ href, children,...props  }) {
     return (
         <li>
             <Link
@@ -19,6 +20,7 @@ export function NavLink({ href, children }) {
                     w-full
                     uppercase text-xl
                 "
+                {...props}
             >
                 {children}
             </Link>
