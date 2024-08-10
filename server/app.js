@@ -43,8 +43,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 mongoose.connect('mongodb://localhost:27017/registrationDB', {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 const userSchema = new mongoose.Schema({
@@ -97,8 +97,8 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+app.listen(5000, () => {
+  console.log('Server is running on port 5000');
 });
 
 
