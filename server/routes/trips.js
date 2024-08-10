@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Trip = require('../models/Trip');
-
+const Trip = require('../models/trip'); // Import your Trip model
 // Get all trips
 router.get('/', async (req, res) => {
   try {
@@ -61,5 +60,22 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+// routes/trips.js
+
+
+// Get all trips
+
+router.get('/trips', async (req, res) => {
+  console.log('Fetching trips...');
+  try {
+    const trips = await Trip.find();
+    console.log('Trips fetched successfully:', trips);
+    res.status(200).json(trips);
+  } catch (error) {
+    console.error('Error fetching trips:', error);
+    res.status(500).json({ message: 'Server error fetching trips' });
+  }
+});
+
 
 module.exports = router;

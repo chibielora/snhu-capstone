@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const router = express.Router();
 
 mongoose.connect('mongodb://localhost/getaways', { useNewUrlParser: true, useUnifiedTopology: true });
 
