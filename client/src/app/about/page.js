@@ -1,3 +1,4 @@
+import Footer from "../footer";
 export default function About() {
   return (
     <div className="about-container">
@@ -19,18 +20,7 @@ export default function About() {
       
       <h2>OUR CREWS</h2>
       <p>Lorem ipsum dolor sit amet.</p>
-      <div className="footer flex justify-between">
-          <div className="foots">
-          <a href="#" className="lin">HOME</a>
-          <a href="#" className="lin">TRAVEL</a>
-          <a href="#" className="lin">ROOMS</a>
-          <a href="#" className="lin">MEALS</a>
-          <a href="#" className="lin">NEWS</a>
-          <a href="#" className="lin">ABOUT</a>
-          <a href="#" className="lin">CONTACT</a>
-          </div>
-          <img src="/images/icons.png" alt="Icons" className="horizontal-image"/>
-        </div>
+      <Footer/>
     </div>
   );
 }

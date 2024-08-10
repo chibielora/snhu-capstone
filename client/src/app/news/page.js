@@ -1,3 +1,4 @@
+import Footer from "../footer";
 export default function News() {
   return (
     <div className="news-container">
@@ -35,8 +36,9 @@ Phasellus viverra fringilla lacus, malesuada blandit velit iaculis dignissim. Su
           </ul>
         </div>
       </div>
-      
+      <Footer/>
     </div>
+    
     </div>
     
   );

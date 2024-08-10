@@ -15,7 +15,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/register', {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, {
         username,
         email,
         password,

@@ -1,3 +1,4 @@
+import Footer from "../footer";
 export default function Contact() {
 
 
@@ -34,18 +35,7 @@ export default function Contact() {
           <button type="submit" className="submit-btn">SEND</button>
         </form>
       </div>
-      <div className="footer flex justify-between">
-          <div className="foots">
-          <a href="#" className="lin">HOME</a>
-          <a href="#" className="lin">TRAVEL</a>
-          <a href="#" className="lin">ROOMS</a>
-          <a href="#" className="lin">MEALS</a>
-          <a href="#" className="lin">NEWS</a>
-          <a href="#" className="lin">ABOUT</a>
-          <a href="#" className="lin">CONTACT</a>
-          </div>
-          <img src="/images/icons.png" alt="Icons" className="horizontal-image"/>
-        </div>
+      <Footer/>
     </div>
   );
 }
