@@ -1,46 +1,22 @@
-// require('dotenv').config();
-// const express = require('express');
-// const cors = require('cors');
-// const connectDB = require('./config/db');
-// const tripsRouter = require('./routes/trips');
-
-// const app = express();
-
-// // Connect to MongoDB
-// connectDB();
-
-// // Middleware
-// app.use(cors());
-// app.use(express.json());
-
-// // Routes
-// app.use('/api/trips', tripsRouter);
-
-// // Error handling middleware
-// app.use((err, req, res, next) => {
-//   console.error(err.stack);
-//   res.status(500).send('Something went wrong!');
-// });
-
-// const PORT = process.env.PORT || 5000;
-
-// app.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
-
-// backend/server.js
-
-// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+const path = require('path');
+const Trip = require('./models/trip');
+const tripsRouter = require('./routes/trips');
+const multer = require('multer');
+
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 mongoose.connect('mongodb://localhost:27017/registrationDB', {
   useNewUrlParser: true,
@@ -74,31 +50,101 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  console.log(`Received login request for username: ${username}`);
 
   try {
     const user = await User.findOne({ username });
     if (!user) {
-      console.log(`User not found: ${username}`);
       return res.send({ success: false, message: 'Invalid credentials' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(`Password match status for user ${username}: ${isMatch}`);
-
     if (isMatch) {
       res.send({ success: true, message: 'Login successful' });
     } else {
       res.send({ success: false, message: 'Invalid credentials' });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).send({ success: false, message: 'Server error' });
   }
 });
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directory to save the file
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the file name
+  },
+});
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+const upload = multer({ storage: storage });
+
+// Handle form submission with multer middleware
+app.post('/set', upload.single('image'), async (req, res) => {
+  console.log('Request body:', req.body); // Log the incoming request body
+  console.log('Uploaded file:', req.file); // Log the uploaded file info
+
+  const { code, name, length, start, resort, perPerson, description } = req.body;
+  const image = req.file.path
+  const trip = new Trip({
+    code,
+    name,
+    length,
+    start, // Ensure start is in Date format
+    resort,
+    perPerson,
+    image,
+    description
+  });
+
+  console.log('Trip data:', trip); // Log the trip object
+
+  try {
+    await trip.save();
+    res.status(201).send('Trip added successfully');
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 
+
+
+
+app.get('/getTrips', async (req, res) => {
+  try {
+    const trips = await Trip.find();
+    res.status(200).json(trips);
+  } catch (error) {
+    console.error('Error fetching trips:', error);
+    res.status(500).json({ message: 'Server error fetching trips' });
+  }
+});
+
+// Get a single trip by ID
+app.get('/getEditTrips/:id', async (req, res) => {
+  const { id } = req.params;
+  const trip = await Trip.findById(id);
+  if (trip) {
+    res.json(trip);
+  } else {
+    res.status(404).send('Trip not found');
+  }
+});
+
+// Update a trip by ID
+app.put('/editTrips/:id', async (req, res) => {
+  const { id } = req.params;
+  const updatedTrip = await Trip.findByIdAndUpdate(id, req.body, { new: true });
+  if (updatedTrip) {
+    res.json(updatedTrip);
+  } else {
+    res.status(404).send('Trip not found');
+  }
+});
+
+
+app.listen(5000, () => {
+  console.log('Server is running on port 5000');
+});
