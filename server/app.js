@@ -8,8 +8,11 @@ const Trip = require('./models/trip');
 const tripsRouter = require('./routes/trips');
 const multer = require('multer');
 
-const CLIENT_URL = process.env.CLIENT_URL;
-const PORT = process.env.PORT;
+const {
+  CLIENT_URL,
+  MONGO_URI,
+  PORT
+} = process.env;
 
 const app = express();
 
@@ -20,7 +23,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-mongoose.connect('mongodb://localhost:27017/registrationDB', {
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
