@@ -23,7 +23,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: CLIENT_URL,
+  origin: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
