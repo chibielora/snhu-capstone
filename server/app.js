@@ -8,12 +8,14 @@ const Trip = require('./models/trip');
 const tripsRouter = require('./routes/trips');
 const multer = require('multer');
 
+const CLIENT_URL = process.env.CLIENT_URL;
+const PORT = process.env.PORT;
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: CLIENT_URL,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -108,10 +110,6 @@ app.post('/set', upload.single('image'), async (req, res) => {
   }
 });
 
-
-
-
-
 app.get('/getTrips', async (req, res) => {
   try {
     const trips = await Trip.find();
@@ -145,6 +143,6 @@ app.put('/editTrips/:id', async (req, res) => {
 });
 
 
-app.listen(5000, () => {
-  console.log('Server is running on port 5000');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
