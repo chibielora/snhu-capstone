@@ -14,6 +14,11 @@ const {
   PORT
 } = process.env;
 
+process.on('uncaughtException', err => {
+  console.log(`Uncaught Exception: ${err.message}`)
+  process.exit(1)
+})
+
 const app = express();
 
 app.use(bodyParser.json());
