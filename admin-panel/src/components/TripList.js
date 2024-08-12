@@ -10,7 +10,7 @@ const TripList = () => {
       try {
         const response = await axios.get('http://localhost:5000/getTrips');
         setTrips(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error('Error fetching trip data:', error);
       }
@@ -18,6 +18,16 @@ const TripList = () => {
 
     fetchTrips();
   }, []);
+
+  // Function to handle deleting a trip
+  const deleteTrip = async (tripId) => {
+    try {
+      await axios.delete(`http://localhost:5000/deleteTrip/${tripId}`);
+      setTrips(trips.filter((trip) => trip._id !== tripId));
+    } catch (error) {
+      console.error('Error deleting trip:', error);
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -36,9 +46,17 @@ const TripList = () => {
               <p className="text-sm">{trip.duration} only ${trip.perPerson} per person</p>
               <p className="mt-2">{trip.description}</p>
             </div>
-            <Link to={`/edit/${trip._id}`} className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-10 py-3 uppercase text-xl">
-              Edit Trip
-            </Link>
+            <div className="flex justify-between p-4">
+              <Link to={`/edit/${trip._id}`} className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-4 py-2 uppercase text-sm">
+                Edit Trip
+              </Link>
+              <button 
+                onClick={() => deleteTrip(trip._id)} 
+                className="inline-block bg-gradient-to-b from-red-600 to-red-700 hover:from-red-200 hover:to-red-300 hover:text-gray-800 px-4 py-2 uppercase text-sm"
+              >
+                Delete Trip
+              </button>
+            </div>
           </div>
         ))}
       </div>

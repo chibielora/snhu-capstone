@@ -10,7 +10,7 @@ function EditTrip() {
     start: '',
     resort: '',
     perPerson: '',
-    imageUrl: '',
+    image: '',
     description: ''
   });
 
@@ -120,18 +120,7 @@ function EditTrip() {
             className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500"
           />
         </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="imageUrl">
-            Image URL
-          </label>
-          <input
-            type="text"
-            name="imageUrl"
-            value={trip.imageUrl}
-            onChange={handleChange}
-            className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500"
-          />
-        </div>
+        
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
             Description
