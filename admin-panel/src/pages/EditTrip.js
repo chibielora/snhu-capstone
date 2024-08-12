@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from "../api"
 
 function EditTrip() {
   const [trip, setTrip] = useState({
@@ -20,7 +21,7 @@ function EditTrip() {
   useEffect(() => {
     const fetchTrip = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/getEditTrips/${id}`);
+        const response = await axios.get(`${API_URL}/getEditTrips/${id}`);
         setTrip(response.data);
       } catch (error) {
         console.error('Error fetching trip data:', error);

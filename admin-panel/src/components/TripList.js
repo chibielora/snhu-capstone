@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { API_URL } from '../api';
 
 const TripList = () => {
   const [trips, setTrips] = useState([]);
@@ -8,7 +9,7 @@ const TripList = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/getTrips');
+        const response = await axios.get(`${API_URL}/getTrips`);
         setTrips(response.data);
         console.log(response.data);
       } catch (error) {
@@ -22,7 +23,7 @@ const TripList = () => {
   // Function to handle deleting a trip
   const deleteTrip = async (tripId) => {
     try {
-      await axios.delete(`http://localhost:5000/deleteTrip/${tripId}`);
+      await axios.delete(`${API_URL}/deleteTrip/${tripId}`);
       setTrips(trips.filter((trip) => trip._id !== tripId));
     } catch (error) {
       console.error('Error deleting trip:', error);
