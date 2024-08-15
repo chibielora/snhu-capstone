@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../api';
 
 const TripList = () => {
   const [trips, setTrips] = useState([]);
@@ -9,7 +8,7 @@ const TripList = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get(`${API_URL}/getTrips`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/getTrips`);
         setTrips(response.data);
         console.log(response.data);
       } catch (error) {
@@ -23,7 +22,7 @@ const TripList = () => {
   // Function to handle deleting a trip
   const deleteTrip = async (tripId) => {
     try {
-      await axios.delete(`${API_URL}/deleteTrip/${tripId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/deleteTrip/${tripId}`);
       setTrips(trips.filter((trip) => trip._id !== tripId));
     } catch (error) {
       console.error('Error deleting trip:', error);
@@ -40,7 +39,7 @@ const TripList = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {trips.map((trip) => (
           <div key={trip._id} className="bg-gray-800 text-white rounded-lg shadow-md overflow-hidden">
-            <img src={`http://localhost:5000/${trip.image}`} alt={trip.name} className="w-full h-48 object-cover" />
+            <img src={trip.image} alt={trip.name} className="w-full h-48 object-cover" />
             <div className="p-4">
               <h2 className="text-xl font-bold">{trip.name}</h2>
               <p className="text-sm text-green-400">{trip.location}, {trip.stars} stars</p>

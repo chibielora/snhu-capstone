@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { API_URL } from '../api';
 
 function AddTrip() {
   const [code, setCode] = useState('');
@@ -10,7 +9,7 @@ function AddTrip() {
   const [start, setStart] = useState('');
   const [resort, setResort] = useState('');
   const [perPerson, setPerPerson] = useState('');
-  const [image, setImage] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ function AddTrip() {
     formData.append('start', start);
     formData.append('resort', resort);
     formData.append('perPerson', perPerson);
-    formData.append('image', image);
+    formData.append('imageURL', imageURL);
     formData.append('description', description);
   
     // Logging the form data
@@ -32,7 +31,7 @@ function AddTrip() {
     }
   
     try {
-      const response = await axios.post(`${API_URL}/set`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/set`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -151,7 +150,7 @@ function AddTrip() {
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="perPerson"
                 name="perPerson"
-                type="number"
+                type="Number"
                 value={perPerson}
                 onChange={(e) => setPerPerson(e.target.value)}
               />
@@ -166,10 +165,10 @@ function AddTrip() {
             <div className="md:w-2/3">
               <input
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="image"
-                name="image"
-                type="file"
-                onChange={(e) => setImage(e.target.files[0])}
+                id="imageURL"
+                name="imageURL"
+                type="text"
+                onChange={(e) => setImageURL(e.target.value)}
               />
             </div>
           </div>
