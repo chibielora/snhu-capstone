@@ -1,34 +1,30 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 const path = require('path');
 const Trip = require('./models/trip');
 const tripsRouter = require('./routes/trips');
 const multer = require('multer');
+const upload=multer();
 
-const {
-  CLIENT_URL,
-  MONGO_URI,
-  PORT
-} = process.env;
-
-process.on('uncaughtException', err => {
-  console.log(`Uncaught Exception: ${err.message}`)
-  process.exit(1)
-})
 
 const app = express();
 
+const PORT = process.env.PORT || 5000;
+const MONGO_URL_DB=process.env.MONGO_URL_DB
+
 app.use(bodyParser.json());
 app.use(cors({
-  origin: true,
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-mongoose.connect(MONGO_URI, {
+mongoose.connect(MONGO_URL_DB, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -78,47 +74,45 @@ app.post('/login', async (req, res) => {
   }
 });
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // Directory to save the file
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Append timestamp to the file name
-  },
-});
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-const upload = multer({ storage: storage });
+app.post('/set',upload.none(), async (req, res) => {
+  console.log('Request body:', req.body);
 
-// Handle form submission with multer middleware
-app.post('/set', upload.single('image'), async (req, res) => {
-  console.log('Request body:', req.body); // Log the incoming request body
-  console.log('Uploaded file:', req.file); // Log the uploaded file info
+  const { code, name, length, start, resort, perPerson, imageURL, description } = req.body;
 
-  const { code, name, length, start, resort, perPerson, description } = req.body;
-  const image = req.file.path
   const trip = new Trip({
     code,
     name,
     length,
-    start, // Ensure start is in Date format
+    start,
     resort,
     perPerson,
-    image,
+    image:imageURL,
     description
   });
 
-  console.log('Trip data:', trip); // Log the trip object
+  console.log('Trip data:', trip);
 
   try {
     await trip.save();
     res.status(201).send('Trip added successfully');
   } catch (error) {
-    res.status(400).send(error);
+    console.log("Error while saving trip:", error);
+    res.status(400).send(error.message);
   }
 });
 
 app.get('/getTrips', async (req, res) => {
+  try {
+    const trips = await Trip.find();
+    res.status(200).json(trips);
+  } catch (error) {
+    console.error('Error fetching trips:', error);
+    res.status(500).json({ message: 'Server error fetching trips' });
+  }
+});
+
+app.get('/getTripsClient', async (req, res) => {
   try {
     const trips = await Trip.find();
     res.status(200).json(trips);
@@ -150,9 +144,26 @@ app.put('/editTrips/:id', async (req, res) => {
   }
 });
 
-app.get('/', async (req, res) => {
-  res.status(200).send("Hello, world!");
-})
+// Delete a trip by ID and remove the associated image file
+app.delete('/deleteTrip/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const trip = await Trip.findById(id);
+    if (!trip) {
+      return res.status(404).send('Trip not found');
+    }
+
+
+      // Delete the trip from the database
+      await Trip.findByIdAndDelete(id);
+      res.status(200).send('Trip and associated image deleted successfully');
+  } catch (error) {
+    console.error('Error deleting trip:', error);
+    res.status(500).send('Server error deleting trip');
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
