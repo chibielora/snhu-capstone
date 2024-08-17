@@ -1,25 +1,7 @@
-"use client";
-
-import { useState, useEffect } from 'react';
 import Footer from "../footer";
-export default function Trips() {
-  const [trips, setTrips] = useState([]);
 
-  // Fetch the trips data from the server
-  useEffect(() => {
-    async function fetchTrips() {
-      try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trips`); // Ensure this URL matches your server setup
-        const data = await response.json();
-        setTrips(data); // Set the fetched trips data to state
-      } catch (error) {
-        console.error('Error fetching trips:', error);
-      }
-    }
-
-    fetchTrips();
-  }, []); // Empty dependency array means this effect runs once when the component mounts
-
+export default async function Trips() {
+  const trips = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trips`).then(res => res.json());
 
   return (
     <div className="travel-container">
