@@ -9,13 +9,13 @@ const path = require('path');
 const Trip = require('./models/trip');
 const tripsRouter = require('./routes/trips');
 const multer = require('multer');
-const upload=multer();
+const upload = multer();
 
 
 const app = express();
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URL_DB=process.env.MONGO_URL_DB
+const MONGO_URL_DB = process.env.MONGO_URL_DB
 
 app.use(bodyParser.json());
 app.use(cors({
@@ -40,7 +40,7 @@ const User = mongoose.model('User', userSchema);
 app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
-  
+
   try {
     const existingUser = await User.findOne({ username });
     if (existingUser) {
@@ -75,7 +75,7 @@ app.post('/login', async (req, res) => {
 });
 
 
-app.post('/set',upload.none(), async (req, res) => {
+app.post('/set', upload.none(), async (req, res) => {
   console.log('Request body:', req.body);
 
   const { code, name, length, start, resort, perPerson, imageURL, description } = req.body;
@@ -87,7 +87,7 @@ app.post('/set',upload.none(), async (req, res) => {
     start,
     resort,
     perPerson,
-    image:imageURL,
+    image: imageURL,
     description
   });
 
@@ -155,9 +155,9 @@ app.delete('/deleteTrip/:id', async (req, res) => {
     }
 
 
-      // Delete the trip from the database
-      await Trip.findByIdAndDelete(id);
-      res.status(200).send('Trip and associated image deleted successfully');
+    // Delete the trip from the database
+    await Trip.findByIdAndDelete(id);
+    res.status(200).send('Trip and associated image deleted successfully');
   } catch (error) {
     console.error('Error deleting trip:', error);
     res.status(500).send('Server error deleting trip');
