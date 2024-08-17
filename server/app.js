@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const tripsRouter = require('./routes/trips');
+const blogPostsRouter = require('./routes/blog-posts');
 
 const app = express();
 
@@ -18,10 +19,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-mongoose.connect(MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(MONGO_URL);
 
 const userSchema = new mongoose.Schema({
   username: String,
@@ -69,6 +67,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.use('/trips', tripsRouter);
+app.use('/blog-posts', blogPostsRouter)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
