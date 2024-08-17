@@ -66,9 +66,6 @@ body {
   font-size: 0.9em;
   margin-bottom: 10px;
 }
-.test{
-  margin-top: 50px;
-}
 
 .feature-box {
   text-align: center;
@@ -86,9 +83,12 @@ body {
 }
 
 .horizontal-image {
-  display: block; /* Ensure image is displayed as a block-level element */
-  transform: rotate(90deg); /* Rotate the image 90 degrees */
-  transform-origin: top left; /* Adjust the rotation origin if needed */
+  display: block;
+  /* Ensure image is displayed as a block-level element */
+  transform: rotate(90deg);
+  /* Rotate the image 90 degrees */
+  transform-origin: top left;
+  /* Adjust the rotation origin if needed */
   color: #020101;
 }
 
@@ -114,13 +114,16 @@ body {
   color: #020101;
   text-decoration: none;
 }
-.foots{
+
+.foots {
   display: flex;
   justify-content: space-around;
 }
-.lin{
+
+.lin {
   margin-left: 15px;
 }
+
 .meals-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -174,6 +177,7 @@ body {
   width: 32%;
   height: auto;
 }
+
 .travel-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -193,13 +197,6 @@ body {
   gap: 20px;
 }
 
-.trip-card {
-  background-color: #333;
-  color: #fff;
-  padding: 15px;
-  border-radius: 5px;
-}
-
 .trip-card h2 {
   font-size: 18px;
   margin-bottom: 10px;
@@ -213,28 +210,12 @@ body {
   margin-bottom: 10px;
 }
 
-.trip-location {
-  font-size: 14px;
-  color: #ccc;
-  margin-bottom: 5px;
-}
-
-.trip-price {
-  font-size: 14px;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.trip-description {
-  font-size: 14px;
-  line-height: 1.4;
-}
-
 @media (max-width: 768px) {
   .trips-grid {
     grid-template-columns: 1fr;
   }
 }
+
 .rooms-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -297,6 +278,7 @@ body {
     margin-bottom: 10px;
   }
 }
+
 .contact-container {
   max-width: 1000px;
   margin: 0 auto;
@@ -384,6 +366,7 @@ body {
     padding-right: 0;
   }
 }
+
 /* About.css */
 .about-container {
   max-width: 1000px;
@@ -397,16 +380,6 @@ h1 {
   font-size: 24px;
 }
 
-h2 {
-  color: #2c5e2e;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-p {
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
 .news-container {
   display: flex;
   max-width: 1000px;
@@ -446,26 +419,31 @@ p {
   flex: 1;
 }
 
-.latest-news, .vacation-tips {
+.latest-news,
+.vacation-tips {
   margin-bottom: 20px;
 }
 
-.latest-news h3, .vacation-tips h3 {
+.latest-news h3,
+.vacation-tips h3 {
   color: #4a7a60;
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-.latest-news ul, .vacation-tips ul {
+.latest-news ul,
+.vacation-tips ul {
   list-style: none;
   padding: 0;
 }
 
-.latest-news li, .vacation-tips li {
+.latest-news li,
+.vacation-tips li {
   margin-bottom: 5px;
   color: #666;
   font-size: 14px;
 }
+
 .register-container {
   padding: 20px;
   max-width: 800px;
@@ -530,15 +508,20 @@ p {
 .horizontal-image {
   height: 40px;
 }
+
 /* In your App.css or a similar CSS file */
 .icon-circle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 50px; /* Adjust size as needed */
-  height: 50px; /* Adjust size as needed */
+  width: 50px;
+  /* Adjust size as needed */
+  height: 50px;
+  /* Adjust size as needed */
   border-radius: 50%;
   background-color: white;
-  color: black; /* Adjust color as needed */
-  font-size: 24px; /* Adjust icon size as needed */
+  color: black;
+  /* Adjust color as needed */
+  font-size: 24px;
+  /* Adjust icon size as needed */
 }

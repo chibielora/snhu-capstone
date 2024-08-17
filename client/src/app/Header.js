@@ -4,6 +4,7 @@ import { NavLink } from "./nav-link";
 import { useUser } from './UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import Link from "next/link";
 
 
 export default function Header() {
@@ -16,16 +17,16 @@ export default function Header() {
         {user ? (
           <div className="flex items-center">
             <div className="icon-circle">
-        <FontAwesomeIcon icon={faUser} />
-      </div>
+              <FontAwesomeIcon icon={faUser} />
+            </div>
             <span className="text-white mr-4">Welcome back, @{user.username}!</span>
             <button onClick={logoutUser} className="ml-auto">Logout</button>
           </div>
         ) : (
-            <div className="flex space-x-4">
-          <NavLink href="/register" className="ml-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition ease-in-out duration-300">Register</NavLink>
-          <NavLink href="/login" className="ml-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition ease-in-out duration-300">Login</NavLink>
-          </div>
+          <ul className="flex space-x-4">
+            <Link href="/register" className="ml-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition ease-in-out duration-300">Register</Link>
+            <Link href="/login" className="ml-auto bg-gray-200 text-gray-800 px-4 py-2 rounded-full hover:bg-gray-300 transition ease-in-out duration-300">Login</Link>
+          </ul>
         )}
       </div>
       <nav className="bg-teal-700 w-full">

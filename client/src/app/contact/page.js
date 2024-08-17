@@ -1,7 +1,4 @@
-import Footer from "../footer";
 export default function Contact() {
-
-
   return (
     <div className="contact-container">
       <h1 className="main-title">CONTACT</h1>
@@ -9,11 +6,11 @@ export default function Contact() {
         <div className="contact-info">
           <h2>TRAVLR GETAWAYS</h2>
           <p><strong>ADDRESS:</strong><br />
-          123 Lorem Ipsum Cove, Sed Ut City, LI 12345</p>
+            123 Lorem Ipsum Cove, Sed Ut City, LI 12345</p>
           <p><strong>TELEPHONE NUMBER:</strong><br />
-          1-800-999-9999</p>
+            1-800-999-9999</p>
           <p><strong>FAX NUMBER:</strong><br />
-          1-800-111-1111</p>
+            1-800-111-1111</p>
         </div>
         <form className="contact-form" >
           <div className="form-group">
@@ -26,7 +23,7 @@ export default function Contact() {
           </div>
           <div className="form-group">
             <label htmlFor="subject">SUBJECT:</label>
-            <input type="text" id="subject" name="subject"  required />
+            <input type="text" id="subject" name="subject" required />
           </div>
           <div className="form-group">
             <label htmlFor="message">MESSAGE:</label>
@@ -35,7 +32,6 @@ export default function Contact() {
           <button type="submit" className="submit-btn">SEND</button>
         </form>
       </div>
-      <Footer/>
     </div>
   );
 }
