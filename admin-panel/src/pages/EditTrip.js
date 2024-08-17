@@ -20,7 +20,7 @@ function EditTrip() {
   useEffect(() => {
     const fetchTrip = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/getEditTrips/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/trips/${id}`);
         setTrip(response.data);
       } catch (error) {
         console.error('Error fetching trip data:', error);
@@ -37,7 +37,7 @@ function EditTrip() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}/editTrips/${id}`, trip);
+      await axios.put(`${process.env.REACT_APP_API_URL}/trips/${id}`, trip);
       navigate('/');
     } catch (error) {
       console.error('Error updating trip:', error);
@@ -47,7 +47,7 @@ function EditTrip() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Edit Trip</h1>
-      
+
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8">
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="code">
@@ -125,21 +125,22 @@ function EditTrip() {
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="perPerson">
             Image Url
           </label>
-            <img
-              src={trip.image}
-              name="images"
-              value={trip.image}
-              width="50px"
-              height="50px"
-              className="bg-gray-200 border-2 border-gray-200 rounded w-50px py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500"
-            />
-            <input
-              type="url"
-              name="image"
-              value={trip.image}
-              onChange={handleChange}
-              className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500"
-            />
+          <img
+            src={trip.image}
+            name="images"
+            value={trip.image}
+            width="50px"
+            height="50px"
+            className="bg-gray-200 border-2 border-gray-200 rounded w-50px py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500"
+            alt="Trip Preview"
+          />
+          <input
+            type="url"
+            name="image"
+            value={trip.image}
+            onChange={handleChange}
+            className="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500"
+          />
         </div>
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">

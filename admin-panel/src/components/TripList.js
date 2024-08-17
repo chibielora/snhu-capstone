@@ -8,7 +8,7 @@ const TripList = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/getTrips`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/trips`);
         setTrips(response.data);
         console.log(response.data);
       } catch (error) {
@@ -22,7 +22,7 @@ const TripList = () => {
   // Function to handle deleting a trip
   const deleteTrip = async (tripId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/deleteTrip/${tripId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/trip/${tripId}`);
       setTrips(trips.filter((trip) => trip._id !== tripId));
     } catch (error) {
       console.error('Error deleting trip:', error);
@@ -42,7 +42,7 @@ const TripList = () => {
             <img src={trip.image} alt={trip.name} className="w-full h-48 object-cover" />
             <div className="p-4">
               <h2 className="text-xl font-bold">{trip.name}</h2>
-              <p className="text-sm text-green-400">{trip.location}, {trip.stars} stars</p>
+              <p className="text-sm text-green-400">{trip.location}</p>
               <p className="text-sm">{trip.duration} only ${trip.perPerson} per person</p>
               <p className="mt-2">{trip.description}</p>
             </div>
@@ -50,8 +50,8 @@ const TripList = () => {
               <Link to={`/edit/${trip._id}`} className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-4 py-2 uppercase text-sm">
                 Edit Trip
               </Link>
-              <button 
-                onClick={() => deleteTrip(trip._id)} 
+              <button
+                onClick={() => deleteTrip(trip._id)}
                 className="inline-block bg-gradient-to-b from-red-600 to-red-700 hover:from-red-200 hover:to-red-300 hover:text-gray-800 px-4 py-2 uppercase text-sm"
               >
                 Delete Trip

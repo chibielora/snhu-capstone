@@ -24,14 +24,14 @@ function AddTrip() {
     formData.append('perPerson', perPerson);
     formData.append('imageURL', imageURL);
     formData.append('description', description);
-  
+
     // Logging the form data
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-  
+
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/set`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/trips`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -45,7 +45,7 @@ function AddTrip() {
       console.error('Error during Axios request:', error);
     }
   };
-  
+
 
   return (
     <div className="container mx-auto p-4">
@@ -165,8 +165,8 @@ function AddTrip() {
             <div className="md:w-2/3">
               <input
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="imageURL"
-                name="imageURL"
+                id="image"
+                name="image"
                 type="text"
                 onChange={(e) => setImageURL(e.target.value)}
               />
