@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BlogPost = require('../models/blog-post'); // Import your BlogPost model
+const { auth } = require('../config/auth');
 
 router.get('/', async (req, res) => {
     try {
@@ -23,7 +24,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
     const blogPost = new BlogPost(req.body);
     try {
         const newBlogPost = await blogPost.save();
