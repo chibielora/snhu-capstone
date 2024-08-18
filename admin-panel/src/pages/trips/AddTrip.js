@@ -9,7 +9,7 @@ function AddTrip() {
   const [start, setStart] = useState('');
   const [resort, setResort] = useState('');
   const [perPerson, setPerPerson] = useState('');
-  const [imageURL, setImageURL] = useState(null);
+  const [image, setImage] = useState(null);
   const [description, setDescription] = useState('');
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ function AddTrip() {
     formData.append('start', start);
     formData.append('resort', resort);
     formData.append('perPerson', perPerson);
-    formData.append('imageURL', imageURL);
+    formData.append('image', image);
     formData.append('description', description);
 
     // Logging the form data
@@ -45,7 +45,6 @@ function AddTrip() {
       console.error('Error during Axios request:', error);
     }
   };
-
 
   return (
     <div className="container mx-auto p-4">
@@ -168,7 +167,7 @@ function AddTrip() {
                 id="image"
                 name="image"
                 type="text"
-                onChange={(e) => setImageURL(e.target.value)}
+                onChange={(e) => setImage(e.target.value)}
               />
             </div>
           </div>

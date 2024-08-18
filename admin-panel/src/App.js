@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import TripList from './components/TripList';
-import AddTrip from './pages/AddTrip';
-import EditTrip from './pages/EditTrip';
+import AddBlogPost from './pages/blog-posts/AddBlogPost';
+import AddTrip from './pages/trips/AddTrip';
+import EditTrip from './pages/trips/EditTrip';
 import Login from './account/Login';
 import Register from './account/Register';
 import './index.css';
@@ -18,21 +19,22 @@ const App = () => {
     <Router>
       <div className="App">
         {/* Pass login state and handlers to the Navbar */}
-        <Navbar 
-          logo={logo} 
-          isLoggedIn={isLoggedIn} 
-          setIsLoggedIn={setIsLoggedIn} 
-          isAdmin={isAdmin} 
+        <Navbar
+          logo={logo}
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          isAdmin={isAdmin}
         />
         <Routes>
           <Route path="/" element={<TripList />} />
           <Route path="/add" element={<AddTrip />} />
-          <Route 
-            path="/login" 
-            element={<Login setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />} 
+          <Route path="/edit/:id" element={<EditTrip />} />
+          <Route path="/blog/new" element={<AddBlogPost />} />
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />}
           />
           <Route path="/register" element={<Register />} />
-          <Route path="/edit/:id" element={<EditTrip />} />
         </Routes>
       </div>
     </Router>
