@@ -32,7 +32,7 @@ const TripList = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <Link to="/add" className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-10 py-3 uppercase text-xl">
+        <Link to="/trips/add" className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-10 py-3 uppercase text-xl">
           Add Trip
         </Link>
       </div>
@@ -47,7 +47,7 @@ const TripList = () => {
               <p className="mt-2">{trip.description}</p>
             </div>
             <div className="flex justify-between p-4">
-              <Link to={`/edit/${trip._id}`} className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-4 py-2 uppercase text-sm">
+              <Link to={`/trips/${trip._id}/edit`} className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-4 py-2 uppercase text-sm">
                 Edit Trip
               </Link>
               <button

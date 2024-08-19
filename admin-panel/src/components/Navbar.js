@@ -14,9 +14,19 @@ const Navbar = ({ logo }) => {
 
   return (
     <nav className="bg-gray-800 p-4 flex justify-between items-center">
-      <div className="flex items-center">
-        <img src={logo} alt="Travlr Getaways" className="h-8 mr-3" />
-        <span className="text-white font-bold text-lg">Travlr Getaways</span>
+      <div className="flex items-center gap-4">
+        <Link to="/">
+          <img src={logo} alt="Travlr Getaways" className="h-8 mr-3" />
+        </Link>
+        <Link to="/">
+          <span className="text-white font-bold text-lg">Travlr Getaways</span>
+        </Link>
+        {user && (
+          <>
+            <Link to="/trips">Trips</Link>
+            <Link to="/blog-posts">Blog</Link>
+          </>
+        )}
       </div>
       <div>
         {user !== null ? (

@@ -26,7 +26,18 @@ router.get('/:id', async (req, res) => {
 
 // Create a new trip
 router.post('/', async (req, res) => {
-  const trip = new Trip(req.body);
+  const { code, name, length, start, resort, perPerson, image, description } = req.body;
+  const trip = new Trip({
+    code,
+    name,
+    length,
+    start,
+    resort,
+    perPerson,
+    image,
+    description
+  });
+  console.log(req.body);
   try {
     const newTrip = await trip.save();
     res.status(201).json(newTrip);

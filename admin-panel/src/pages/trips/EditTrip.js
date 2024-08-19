@@ -38,7 +38,7 @@ function EditTrip() {
     e.preventDefault();
     try {
       await axios.put(`${process.env.REACT_APP_API_URL}/trips/${id}`, trip);
-      navigate('/');
+      navigate('/trips');
     } catch (error) {
       console.error('Error updating trip:', error);
     }

@@ -1,11 +1,9 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="background">
       <div className="content">
         <div className="header-image">
-          <Image src="/images/sea-sound.jpg" alt="Sea Sound" />
+          <img src="/images/sea-sound.jpg" alt="Sea Sound" />
         </div>
         <h1 className="main-title">ENJOY THE SUMMER WITH US!</h1>
         <p className="description">

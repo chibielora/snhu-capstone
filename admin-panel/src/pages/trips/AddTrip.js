@@ -3,41 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function AddTrip() {
-  const [code, setCode] = useState('');
-  const [name, setName] = useState('');
-  const [length, setLength] = useState('');
-  const [start, setStart] = useState('');
-  const [resort, setResort] = useState('');
-  const [perPerson, setPerPerson] = useState('');
-  const [image, setImage] = useState(null);
-  const [description, setDescription] = useState('');
+  const [trip, setTrip] = useState({
+    code: '',
+    name: '',
+    length: '',
+    start: '',
+    resort: '',
+    perPerson: '',
+    image: '',
+    description: ''
+  });
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setTrip({ ...trip, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('code', code);
-    formData.append('name', name);
-    formData.append('length', length);
-    formData.append('start', start);
-    formData.append('resort', resort);
-    formData.append('perPerson', perPerson);
-    formData.append('image', image);
-    formData.append('description', description);
-
-    // Logging the form data
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
 
     try {
-      const response = await axios.post(`/trips`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(`/trips`, trip);
       if (response.status === 201) {
-        navigate('/');
+        navigate('/trips');
       } else {
         alert('Data not added');
       }
@@ -65,8 +53,8 @@ function AddTrip() {
                 id="code"
                 name="code"
                 type="text"
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
+                value={trip.code}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -82,8 +70,8 @@ function AddTrip() {
                 id="name"
                 name="name"
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={trip.name}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -99,8 +87,8 @@ function AddTrip() {
                 id="length"
                 name="length"
                 type="number"
-                value={length}
-                onChange={(e) => setLength(e.target.value)}
+                value={trip.length}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -116,8 +104,8 @@ function AddTrip() {
                 id="start"
                 name="start"
                 type="date"
-                value={start}
-                onChange={(e) => setStart(e.target.value)}
+                value={trip.start}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -133,8 +121,8 @@ function AddTrip() {
                 id="resort"
                 name="resort"
                 type="text"
-                value={resort}
-                onChange={(e) => setResort(e.target.value)}
+                value={trip.resort}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -150,8 +138,8 @@ function AddTrip() {
                 id="perPerson"
                 name="perPerson"
                 type="Number"
-                value={perPerson}
-                onChange={(e) => setPerPerson(e.target.value)}
+                value={trip.perPerson}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -167,7 +155,7 @@ function AddTrip() {
                 id="image"
                 name="image"
                 type="text"
-                onChange={(e) => setImage(e.target.value)}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -182,8 +170,8 @@ function AddTrip() {
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                 id="description"
                 name="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                value={trip.description}
+                onChange={handleChange}
               />
             </div>
           </div>
