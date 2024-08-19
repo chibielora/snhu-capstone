@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../api/auth';
+import { useUser } from '../account/UserContext';
 
-const Navbar = ({ logo, isLoggedIn, setIsLoggedIn, isAdmin }) => {
+const Navbar = ({ logo }) => {
+  const user = useUser();
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    alert('You have been logged out');
+    logout()
     navigate('/login');
   };
 
@@ -17,10 +19,10 @@ const Navbar = ({ logo, isLoggedIn, setIsLoggedIn, isAdmin }) => {
         <span className="text-white font-bold text-lg">Travlr Getaways</span>
       </div>
       <div>
-        {isLoggedIn ? (
+        {user !== null ? (
           <div className="flex items-center">
             <span className="text-white mr-4">
-              {isAdmin ? 'Welcome, Admin' : 'Welcome, User'}
+              Welcome {user.name}
             </span>
             <button
               onClick={handleLogout}

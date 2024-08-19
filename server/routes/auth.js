@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const User = require('../models/user');
+const { auth } = require('../config/auth');
 
 const router = express.Router();
 
@@ -30,9 +31,7 @@ router.post('/login', (req, res) => {
         return res.status(400).json({ message: "Email and password required" })
     }
 
-    console.log("Authenticating...")
     passport.authenticate('local', (err, user, info) => {
-        console.log(err, user, info)
         if (err) {
             return res.status(400).json(err);
         }
@@ -42,7 +41,11 @@ router.post('/login', (req, res) => {
         }
 
         const token = user.generateJwt();
-        res.status(200).json({ token })
+        res.status(200).json({
+            token,
+            name: user.name,
+            email: user.email,
+        })
     })(req, res);
 })
 

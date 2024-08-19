@@ -6,21 +6,24 @@ export function register({
     email,
     password
 }) {
-    axios.post('/register', { name, email, password }).then(token => {
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`
+    return axios.post('/register', { name, email, password })
+        .then(({ data }) => {
+            const token = data.token;
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 
-        // Allow the user to stay logged in, even if they close/refresh the tab
-        localStorage.setItem(JWT_LOCAL_STORAGE_KEY, token)
-        return token;
-    })
+            // Allow the user to stay logged in, even if they close/refresh the tab
+            localStorage.setItem(JWT_LOCAL_STORAGE_KEY, token)
+            return token;
+        })
 }
 
 export function login(email, password) {
-    axios.post('/login', {
+    return axios.post('/login', {
         email,
         password
-    }).then(token => {
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`
+    }).then(({ data }) => {
+        const token = data.token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 
         // Allow the user to stay logged in, even if they close/refresh the tab
         localStorage.setItem(JWT_LOCAL_STORAGE_KEY, token)
@@ -29,8 +32,8 @@ export function login(email, password) {
 }
 
 export function logout() {
-    axios.post('/logout').then(() => {
-        delete axios.defaults.header["Authorization"]
-        localStorage.removeItem(JWT_LOCAL_STORAGE_KEY)
-    })
+    const a = axios;
+    debugger
+    delete axios.defaults.headers.common["Authorization"];
+    localStorage.removeItem(JWT_LOCAL_STORAGE_KEY)
 }

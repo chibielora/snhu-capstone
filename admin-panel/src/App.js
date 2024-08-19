@@ -11,20 +11,11 @@ import Navbar from './components/Navbar';
 import logo from './images/logo.png';
 
 const App = () => {
-  // State to manage login status and admin status
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
   return (
     <Router>
       <div className="App">
         {/* Pass login state and handlers to the Navbar */}
-        <Navbar
-          logo={logo}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-          isAdmin={isAdmin}
-        />
+        <Navbar logo={logo} />
         <Routes>
           <Route path="/" element={<TripList />} />
           <Route path="/add" element={<AddTrip />} />
@@ -32,7 +23,7 @@ const App = () => {
           <Route path="/blog/new" element={<AddBlogPost />} />
           <Route
             path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} setIsAdmin={setIsAdmin} />}
+            element={<Login />}
           />
           <Route path="/register" element={<Register />} />
         </Routes>
