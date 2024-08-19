@@ -1,16 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { register } from '../api/auth';
 
 export default function Register() {
     const handleSubmit = e => {
         e.preventDefault();
-        const formData = new FormData(e.target);
-        if (formData.get("password") !== formData.get("confirmPassword")) {
+        // Create body from the named elements of the form
+        const body = {}
+        Array.from(e.target.elements).forEach(element => {
+            body[element.name] = element.value;
+        })
+        if (body.password !== body.confirmPassword) {
             alert("Passwords do not match")
             return;
         }
-        axios.post(`${process.env.REACT_APP_API_URL}/register`, formData);
+        register(body);
     }
 
     return (
@@ -25,7 +29,7 @@ export default function Register() {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <input name="name" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="full-name" type="text" />
+                            <input name="name" required className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="full-name" type="text" />
                         </div>
                     </div>
                     <div className="md:flex md:items-center mb-6">
@@ -35,7 +39,7 @@ export default function Register() {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <input name="email" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="email" type="text" />
+                            <input name="email" required className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="email" type="text" />
                         </div>
                     </div>
                     <div className="md:flex md:items-center mb-6">
@@ -45,7 +49,7 @@ export default function Register() {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <input name="password" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="password" type="password" />
+                            <input name="password" required className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="password" type="password" />
                         </div>
                     </div>
                     <div className="md:flex md:items-center mb-6">
@@ -55,7 +59,7 @@ export default function Register() {
                             </label>
                         </div>
                         <div className="md:w-2/3">
-                            <input name="confirmPassword" className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="confirm-password" type="password" />
+                            <input name="confirmPassword" required className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" id="confirm-password" type="password" />
                         </div>
                     </div>
                     <div className="md:flex md:items-center mb-6">

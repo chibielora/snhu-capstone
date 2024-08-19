@@ -11,7 +11,7 @@ export default function AddBlogPost() {
         const formData = new FormData(e.target);
 
         // Make the post request
-        axios.post(`${process.env.REACT_APP_API_URL}/blog-posts`, formData)
+        axios.post(`/blog-posts`, formData)
     };
     return (
         <div className="container mx-auto p-12">

@@ -31,7 +31,7 @@ function AddTrip() {
     }
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/trips`, formData, {
+      const response = await axios.post(`/trips`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

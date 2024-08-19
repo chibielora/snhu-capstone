@@ -1,18 +1,16 @@
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL;
-
 export const fetchTrips = async () => {
-  const response = await axios.get(API_URL);
+  const response = await axios.get('/trips');
   return response.data;
 };
 
 export const addTrip = async (trip) => {
-  const response = await axios.post(`${API_URL}/add`, trip);
+  const response = await axios.post('/trips', trip);
   return response.data;
 };
 
 export const editTrip = async (id, trip) => {
-  const response = await axios.put(`${API_URL}/edit/${id}`, trip);
+  const response = await axios.put(`trips/${id}`, trip);
   return response.data;
 };

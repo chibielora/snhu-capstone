@@ -8,7 +8,7 @@ const TripList = () => {
   useEffect(() => {
     const fetchTrips = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/trips`);
+        const response = await axios.get(`/trips`);
         setTrips(response.data);
         console.log(response.data);
       } catch (error) {
@@ -22,7 +22,7 @@ const TripList = () => {
   // Function to handle deleting a trip
   const deleteTrip = async (tripId) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/trip/${tripId}`);
+      await axios.delete(`/trips/${tripId}`);
       setTrips(trips.filter((trip) => trip._id !== tripId));
     } catch (error) {
       console.error('Error deleting trip:', error);
