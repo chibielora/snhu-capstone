@@ -4,6 +4,7 @@ const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
+require("./config/auth");
 
 const authRouter = require('./routes/auth')
 const tripsRouter = require('./routes/trips');

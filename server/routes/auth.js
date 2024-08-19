@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const passport = require('passport');
 const User = require('../models/user');
 
@@ -31,6 +30,7 @@ router.post('/login', (req, res) => {
         return res.status(400).json({ message: "Email and password required" })
     }
 
+    console.log("Authenticating...")
     passport.authenticate('local', (err, user, info) => {
         console.log(err, user, info)
         if (err) {
@@ -43,7 +43,7 @@ router.post('/login', (req, res) => {
 
         const token = user.generateJwt();
         res.status(200).json({ token })
-    })
+    })(req, res);
 })
 
 module.exports = router;
