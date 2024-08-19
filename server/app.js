@@ -1,3 +1,7 @@
+process.on("uncaughtException", e => {
+  console.error(e);
+})
+
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -45,7 +49,3 @@ app.use(function (err, req, res, next) {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
-process.on("uncaughtException", e => {
-  console.error(e);
-})
