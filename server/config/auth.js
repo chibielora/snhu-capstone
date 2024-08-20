@@ -26,7 +26,7 @@ passport.use(new LocalStrategy({
 const auth = jwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'payload',
-    algorithms: ['RS256']
+    algorithms: ['HS256']
 });
 
 module.exports = { auth }

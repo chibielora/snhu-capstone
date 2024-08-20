@@ -24,7 +24,7 @@ const Navbar = ({ logo }) => {
         {user && (
           <>
             <Link to="/trips">Trips</Link>
-            <Link to="/blog-posts">Blog</Link>
+            <Link to="/posts">Blog</Link>
           </>
         )}
       </div>

@@ -9,18 +9,21 @@ import Register from './account/Register';
 import './index.css';
 import Navbar from './components/Navbar';
 import logo from './images/logo.png';
+import BlogPostList from './pages/blog-posts/BlogPostList';
+import EditBlogPost from './pages/blog-posts/EditBlogPost';
 
 const App = () => {
   return (
     <Router>
       <div className="App">
-        {/* Pass login state and handlers to the Navbar */}
         <Navbar logo={logo} />
         <Routes>
           <Route path="/trips" element={<TripList />} />
           <Route path="/trips/add" element={<AddTrip />} />
           <Route path="/trips/:id/edit" element={<EditTrip />} />
-          <Route path="/blog/new" element={<AddBlogPost />} />
+          <Route path="/posts" element={<BlogPostList />} />
+          <Route path="/posts/add" element={<AddBlogPost />} />
+          <Route path="/posts/:id/edit" element={<EditBlogPost />} />
           <Route
             path="/login"
             element={<Login />}

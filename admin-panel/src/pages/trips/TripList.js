@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Button from '../../components/Button';
 
-const TripList = () => {
+export default function TripList() {
   const [trips, setTrips] = useState([]);
 
   useEffect(() => {
@@ -32,13 +33,13 @@ const TripList = () => {
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-4">
-        <Link to="/trips/add" className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-10 py-3 uppercase text-xl">
-          Add Trip
+        <Link to="/trips/add">
+          <Button>Add Trip</Button>
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {trips.map((trip) => (
-          <div key={trip._id} className="bg-gray-800 text-white rounded-lg shadow-md overflow-hidden">
+          <div key={trip._id} className="flex flex-col bg-gray-800 text-white rounded-lg shadow-md overflow-hidden">
             <img src={trip.image} alt={trip.name} className="w-full h-48 object-cover" />
             <div className="p-4">
               <h2 className="text-xl font-bold">{trip.name}</h2>
@@ -46,16 +47,19 @@ const TripList = () => {
               <p className="text-sm">{trip.duration} only ${trip.perPerson} per person</p>
               <p className="mt-2">{trip.description}</p>
             </div>
+            <div className="flex-1" />{/* Spacer to move buttons to bottom */}
             <div className="flex justify-between p-4">
-              <Link to={`/trips/${trip._id}/edit`} className="inline-block bg-gradient-to-b from-teal-600 to-teal-700 hover:from-orange-200 hover:to-orange-300 hover:text-gray-800 px-4 py-2 uppercase text-sm">
-                Edit Trip
+              <Link to={`/trips/${trip._id}/edit`}>
+                <Button color="green">
+                  Edit Trip
+                </Button>
               </Link>
-              <button
+              <Button
                 onClick={() => deleteTrip(trip._id)}
-                className="inline-block bg-gradient-to-b from-red-600 to-red-700 hover:from-red-200 hover:to-red-300 hover:text-gray-800 px-4 py-2 uppercase text-sm"
+                color="red"
               >
                 Delete Trip
-              </button>
+              </Button>
             </div>
           </div>
         ))}
@@ -63,5 +67,3 @@ const TripList = () => {
     </div>
   );
 };
-
-export default TripList;
