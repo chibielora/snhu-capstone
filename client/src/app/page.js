@@ -1,4 +1,10 @@
-export default function Home() {
+import BlogPostPreview from "./blog/BlogPostPreview";
+
+export default async function Home() {
+  const posts = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/blog-posts`
+  ).then(res => res.json());
+
   return (
     <main className="background">
       <div className="content">
@@ -9,20 +15,18 @@ export default function Home() {
         <p className="description">
           This website template has been designed by <a href="https://www.freewebsitetemplates.com">Free Website Templates</a> for you, for free. You can replace all this text with your own text. You can remove any link to our website from this website template, you're free to use this website template without linking back to us. If you're having problems editing this website template, then don't hesitate to ask for help on the <a href="https://www.freewebsitetemplates.com/forum">Forum</a>.
         </p>
-
         <div className="content-grid">
           <div className="left-column">
             <h2 className="section-title">LATEST BLOG</h2>
-            <div className="blog-post">
-              <h3>2023 Best Beaches Contest Winners</h3>
-              <p className="date">April 02, 2023</p>
-              <p>Integer magna leo, posuere et dignissim vitae, porttitor at odio. Pellentesque a metus nec magna placerat volutpat. Nunc nisi mi, elementum sit amet...</p>
-            </div>
-            <div className="blog-post">
-              <h3>Top 10 Diving Spots</h3>
-              <p className="date">May 29, 2023</p>
-              <p>Maecenas scelerisque odio quis arcu fringilla malesuada. Nulla facilisi. In libero nulla, fermentum ut pretium ac, pharetra et eros...</p>
-            </div>
+            {posts.map(post => (
+              <BlogPostPreview
+                key={post._id}
+                id={post._id}
+                title={post.title}
+                body={post.body}
+                publishedAt={post.createdAt}
+              />
+            ))}
             <div className="blog-post">
               <h2 className="section-title">TESTIMONIALS</h2>
               <p className="quote">"In hac habitasse platea dictumst. Integer purus justo, egestas eu consectetur eu, cursus in tortor. Quisque nec nunc ac mi ultrices iaculis. Aenean quis elit mauris, nec vestibulum lorem."</p>

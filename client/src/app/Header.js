@@ -35,7 +35,7 @@ export default function Header() {
           <NavLink href="/trips">Trips</NavLink>
           <NavLink href="/rooms">Rooms</NavLink>
           <NavLink href="/meals">Meals</NavLink>
-          <NavLink href="/news">News</NavLink>
+          <NavLink href="/blog">Blog</NavLink>
           <NavLink href="/about">About</NavLink>
           <NavLink href="/contact">Contact</NavLink>
         </ul>

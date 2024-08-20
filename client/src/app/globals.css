@@ -55,10 +55,13 @@ body {
   color: #2e8b57;
 }
 
+.blog-post {
+  margin-bottom: 20px;
+}
+
 .blog-post h3 {
   color: #4b0082;
   margin-bottom: 5px;
-  margin-top: 50px;
 }
 
 .date {
